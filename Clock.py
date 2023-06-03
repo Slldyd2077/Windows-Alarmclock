@@ -72,7 +72,7 @@ class AlarmClock(QWidget):
         file_path = self.file_edit.text()
 
         if not file_path:
-            file_path = 'D:/文档/Rockstar Games/GTA V/User Music/『アイドル』 - YOASOBI 推しの子 OP（8K 60FPS）.wav'
+            file_path = 'your_default_music_path'
 
         if file_path.endswith('.mp3'):
             player = mpg123.Mpg123(file_path)
