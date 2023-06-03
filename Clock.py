@@ -40,10 +40,9 @@ class AlarmClock(QWidget):
 
         self.countdown_label = QLabel('倒计时：', self)
         self.countdown_label.move(20, 140)
-
-        self.countdown_display = QLabel('0', self)
+        self.countdown_display = QLabel('00:00:00', self)
         self.countdown_display.move(150, 140)
-
+        
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_countdown)
 
@@ -54,12 +53,16 @@ class AlarmClock(QWidget):
             self.file_edit.setText(file_name)
 
     def start_countdown(self):
-        self.time = self.time_edit.time().hour() * 3600 + self.time_edit.time().minute() * 60
+        self.time = self.time_edit.time().hour() * 3600 + self.time_edit.time().minute() * 60 + self.time_edit.time().second()
         self.timer.start(1000)
 
     def update_countdown(self):
         self.time -= 1
-        self.countdown_display.setText(str(self.time))
+
+        # Format the time in hours, minutes, and seconds
+        time_str = QTime(0, 0).addSecs(self.time).toString('hh:mm:ss')
+
+        self.countdown_display.setText(time_str)
 
         if self.time == 0:
             self.timer.stop()
